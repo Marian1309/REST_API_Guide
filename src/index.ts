@@ -1,13 +1,13 @@
-import express from "express";
-import http from "http";
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-import compression from "compression";
-import cors from "cors";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import bodyParser from 'body-parser';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
+import http from 'http';
+import mongoose from 'mongoose';
 
-import constants from "./constants";
+import constants from './constants';
 
 dotenv.config();
 
@@ -27,6 +27,6 @@ server.listen(PORT, () => {
 
 mongoose.Promise = Promise;
 mongoose.connect(constants.DATABASE_URL);
-mongoose.connection.on("error", (err: Error) => {
+mongoose.connection.on('error', (err: Error) => {
   console.log(err);
 });
