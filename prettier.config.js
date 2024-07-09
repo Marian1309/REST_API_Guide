@@ -13,8 +13,8 @@ const prettierConfig = {
   importOrder: [
     '<THIRD_PARTY_MODULES>',
     '^@/types',
-    '^@/db',
-    '^@/helpers',
+    '^@/db/(.*)$',
+    '^@/helpers/(.*)$',
     '^[../]',
     '^[./]'
   ],

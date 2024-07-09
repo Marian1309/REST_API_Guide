@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-import { GenericObject } from '@/types';
+import type { User } from '@/types';
 
 const UserSchema = new mongoose.Schema({
-  username: {
+  userName: {
     type: String,
     required: true
   },
@@ -38,10 +38,10 @@ export const getUserBySessionToken = (sessionToken: string) =>
 
 export const getUserById = (id: string) => userModel.findById(id);
 
-export const createUser = (values: GenericObject) => new userModel(values);
+export const createUser = (values: User) => new userModel(values);
 
 export const deleteUserById = (id: string) =>
   userModel.findOneAndDelete({ _id: id });
 
-export const updateUserById = (id: string, values: GenericObject) =>
+export const updateUserById = (id: string, values: User) =>
   userModel.findByIdAndUpdate(id, values);
