@@ -7,12 +7,12 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-import env from "./env";
+import constants from "./constants";
 
 dotenv.config();
 
 const app = express();
-const PORT = env.PORT || 3000;
+const PORT = constants.PORT || 3000;
 
 app.use(cors({ credentials: true }));
 app.use(bodyParser.json());
@@ -26,7 +26,7 @@ server.listen(PORT, () => {
 });
 
 mongoose.Promise = Promise;
-mongoose.connect(env.DATABASE_URL);
+mongoose.connect(constants.DATABASE_URL);
 mongoose.connection.on("error", (err: Error) => {
   console.log(err);
 });
