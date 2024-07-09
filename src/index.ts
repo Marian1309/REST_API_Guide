@@ -2,17 +2,13 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import express from 'express';
 import http from 'http';
 import mongoose from 'mongoose';
 
-import constants from './constants';
-
-dotenv.config();
+import { DATABASE_URL, PORT } from './constants';
 
 const app = express();
-const PORT = constants.PORT || 3000;
 
 app.use(cors({ credentials: true }));
 app.use(bodyParser.json());
@@ -26,7 +22,7 @@ server.listen(PORT, () => {
 });
 
 mongoose.Promise = Promise;
-mongoose.connect(constants.DATABASE_URL);
+mongoose.connect(DATABASE_URL);
 mongoose.connection.on('error', (err: Error) => {
   console.log(err);
 });

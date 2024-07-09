@@ -2,9 +2,9 @@
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "baseUrl": ".",
     "outDir": "dist",
     "sourceMap": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
