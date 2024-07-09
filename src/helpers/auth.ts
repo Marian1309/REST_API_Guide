@@ -1,12 +1,12 @@
 import crypto from 'crypto';
 
-const SECRET = 'REST_API_Guide';
+import { HASH_SECRET } from '@/constants';
 
 export const random = () => crypto.randomBytes(128).toString('base64');
 
 export const authentification = (salt: string, password: string) => {
   return crypto
     .createHmac('sha256', [salt, password].join('/'))
-    .update(SECRET)
+    .update(HASH_SECRET)
     .digest('hex');
 };

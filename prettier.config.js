@@ -6,25 +6,20 @@ const prettierConfig = {
   tabWidth: 2,
   semi: true,
   singleQuote: true,
-  jsxSingleQuote: false,
   arrowParens: 'always',
   useTabs: false,
-  quoteProps: 'as-needed',
   importOrder: [
     '<THIRD_PARTY_MODULES>',
     '^@/types',
+    '^@/constants',
     '^@/db/(.*)$',
+    '^@/controllers/(.*)$',
     '^@/helpers/(.*)$',
     '^[../]',
     '^[./]'
   ],
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
-  plugins: ['@trivago/prettier-plugin-sort-imports']
-};
-
-const withTailwind = {
-  ...prettierConfig,
   plugins: ['@trivago/prettier-plugin-sort-imports']
 };
 
