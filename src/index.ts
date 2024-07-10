@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 
 import { DATABASE_URL, PORT } from './constants';
 import authentificationRouter from './routes/authentification';
+import usersRouter from './routes/users';
 
 const app = express();
 
@@ -31,3 +32,4 @@ mongoose.connection.on('error', (err: Error) => {
 });
 
 app.use('/auth', authentificationRouter);
+app.use('/users', usersRouter);
