@@ -5,7 +5,7 @@
   "keywords": [],
   "license": "ISC",
   "author": "Marian Pidchashyi",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "nodemon"
   },

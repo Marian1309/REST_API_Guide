@@ -1,31 +1,6 @@
-import mongoose from 'mongoose';
+import { User } from '@/types';
 
-import type { User } from '@/types';
-
-const UserSchema = new mongoose.Schema({
-  userName: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  authentification: {
-    password: {
-      type: String,
-      required: true,
-      select: false
-    },
-    salt: {
-      type: String,
-      select: false
-    },
-    sessionToken: { type: String, select: false }
-  }
-});
-
-export const userModel = mongoose.model('User', UserSchema);
+import userModel from '@/models/user';
 
 export const getUsers = () => userModel.find();
 

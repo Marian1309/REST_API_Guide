@@ -1,24 +1,22 @@
 import type { NextFunction, Request, Response } from 'express';
 import { get, merge } from 'lodash';
 
-import { getUserBySessionToken } from '@/db/users';
+import { MiddlewareFn } from '@/types';
 
-export const isAuthentificated = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+import { getUserBySessionToken } from '@/services/user';
+
+export const isAuthentificated: MiddlewareFn = async (req, res, next) => {
   try {
-    const sessionToken = req.cookies['AUTHENTICATION'];
+    const sessionToken = req.cookies['AUTHENTICATION'] as string;
 
     if (!sessionToken) {
-      return res.sendStatus(403);
+      return res.json({ message: 'sessionToken is missing' });
     }
 
     const existingUser = await getUserBySessionToken(sessionToken);
 
     if (!existingUser) {
-      return res.sendStatus(403);
+      return res.json({ message: 'user does not exist' });
     }
 
     merge(req, { identity: existingUser });
@@ -26,30 +24,27 @@ export const isAuthentificated = async (
     next();
   } catch (err: unknown) {
     console.log(err);
-    return res.sendStatus(400);
+    return res.status(404).json({ message: 'route not found' });
   }
 };
 
-export const isOwner = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const isOwner: MiddlewareFn = async (req, res, next) => {
   try {
     const { id } = req.params;
+
     const currentUserId = get(req, 'identity._id') as string;
 
     if (!currentUserId) {
-      return res.sendStatus(403);
+      return res.json({ message: 'currentUserId is missing' });
     }
 
     if (currentUserId.toString() !== id) {
-      return res.sendStatus(403);
+      return res.json({ message: 'currentUser does not equal id' });
     }
 
     next();
   } catch (err: unknown) {
     console.log(err);
-    return res.sendStatus(400);
+    return res.status(404).json({ message: 'route not found' });
   }
 };

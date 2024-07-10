@@ -1,20 +1,22 @@
 import type { Request, Response } from 'express';
 
-import { createUser, getUserByEmail } from '@/db/users';
+import { RequestFn } from '@/types';
+
+import { createUser, getUserByEmail } from '@/services/user';
 
 import { authentification, random } from '@/helpers/auth';
 
-export const register = async (req: Request, res: Response) => {
+export const register: RequestFn = async (req, res) => {
   try {
     const { email, password, userName } = req.body;
 
     if (!email || !password || !userName) {
-      return res.sendStatus(400);
+      return res.json({ message: 'all fields are not provided' });
     }
 
     const isUserExists = await getUserByEmail(email);
     if (isUserExists) {
-      return res.sendStatus(400);
+      return res.json({ message: 'user exists' });
     }
 
     const salt = random();
@@ -31,16 +33,16 @@ export const register = async (req: Request, res: Response) => {
     return res.status(200).json(user).end();
   } catch (err: unknown) {
     console.log(err);
-    return res.sendStatus(400);
+    return res.status(404).json({ message: 'route not found' });
   }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login: RequestFn = async (req, res) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.json({ messge: 'There is o email or password' });
+      return res.json({ messge: 'There is no email or password' });
     }
 
     const user = await getUserByEmail(email).select(
@@ -54,7 +56,7 @@ export const login = async (req: Request, res: Response) => {
     const expectedHash = authentification(user.authentification.salt, password);
 
     if (user.authentification.salt.toString() === expectedHash.toString()) {
-      return res.json({ message: 'Hash' });
+      return res.json({ message: 'Salt and Hash are not the same' });
     }
 
     const salt = random();
@@ -74,6 +76,6 @@ export const login = async (req: Request, res: Response) => {
     return res.status(200).json(user).end();
   } catch (err: unknown) {
     console.log(err);
-    return res.sendStatus(400);
+    return res.status(404).json({ message: 'route not found' });
   }
 };

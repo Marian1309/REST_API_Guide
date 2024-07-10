@@ -12,9 +12,11 @@ const prettierConfig = {
     '<THIRD_PARTY_MODULES>',
     '^@/types',
     '^@/constants',
-    '^@/db/(.*)$',
+    '^@/schemas/(.*)$',
+    '^@/models/(.*)$',
     '^@/routes/(.*)$',
     '^@/controllers/(.*)$',
+    '^@/services/(.*)$',
     '^@/helpers/(.*)$',
     '^[../]',
     '^[./]'

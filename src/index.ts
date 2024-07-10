@@ -7,8 +7,7 @@ import http from 'http';
 import mongoose from 'mongoose';
 
 import { DATABASE_URL, PORT } from './constants';
-import authentificationRouter from './routes/authentification';
-import usersRouter from './routes/users';
+import { authentificationRouter, usersRouter } from './routes';
 
 const app = express();
 
@@ -25,7 +24,7 @@ server.listen(PORT, () => {
 
 mongoose.connect(DATABASE_URL);
 mongoose.connection.on('connected', () => {
-  console.log('MongoDB Databse connected');
+  console.log('MongoDB Database connected');
 });
 mongoose.connection.on('error', (err: Error) => {
   console.log(err);
