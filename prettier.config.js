@@ -13,6 +13,7 @@ const prettierConfig = {
     '^@/types',
     '^@/constants',
     '^@/db/(.*)$',
+    '^@/routes/(.*)$',
     '^@/controllers/(.*)$',
     '^@/helpers/(.*)$',
     '^[../]',

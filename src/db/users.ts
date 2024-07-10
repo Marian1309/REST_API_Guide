@@ -38,7 +38,12 @@ export const getUserBySessionToken = (sessionToken: string) =>
 
 export const getUserById = (id: string) => userModel.findById(id);
 
-export const createUser = (values: User) => new userModel(values);
+export const createUser = async (values: User) => {
+  const user = new userModel(values);
+  await user.save();
+
+  return user;
+};
 
 export const deleteUserById = (id: string) =>
   userModel.findOneAndDelete({ _id: id });
